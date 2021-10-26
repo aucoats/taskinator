@@ -1,3 +1,8 @@
+// IF SOMETHING ISN'T WORKING, ENSURE E1 ISN'T EL
+
+// LAST THING I DID WAS CREATETASKACTIONS() AND VAR ACTIONCONTAINEREL
+
+var taskIdCounter = 0;
 var formE1 = document.querySelector("#task-form");
 var tasksToDoE1 = document.querySelector("#tasks-to-do");
 
@@ -32,6 +37,9 @@ var createTaskE1 = function(taskDataObj) {
     var listItemE1 = document.createElement("li");
     listItemE1.className = "task-item";
 
+    // add task id as a custom attribute
+    listItemE1.setAttribute("data-task-id", taskIdCounter);
+
     // create div to hold task info and add to list item
     var taskInfoE1 = document.createElement("div");
     // give it a class name
@@ -44,6 +52,16 @@ var createTaskE1 = function(taskDataObj) {
     // add entire list item to list
     tasksToDoE1.appendChild(listItemE1);
 
+    // increase task counter for next unique id
+    taskIdCounter++;
+
 }
+
+var createTaskActions = function(taskID) {
+
+    var actionContainerEl = document.createElement("div");
+    actionContainerEl.classname = "task-actions";
+
+};
 
 formE1.addEventListener("submit", taskFormHandler);
