@@ -49,6 +49,11 @@ var createTaskE1 = function(taskDataObj) {
 
     listItemE1.appendChild(taskInfoE1);
     
+    var taskActionsEl = createTaskActions(taskIdCounter);
+    listItemE1.appendChild(taskActionsEl);
+
+    tasksToDoE1.appendChild(listItemE1);
+
     // add entire list item to list
     tasksToDoE1.appendChild(listItemE1);
 
@@ -57,11 +62,50 @@ var createTaskE1 = function(taskDataObj) {
 
 }
 
-var createTaskActions = function(taskID) {
+var createTaskActions = function(taskId) {
 
     var actionContainerEl = document.createElement("div");
-    actionContainerEl.classname = "task-actions";
+    actionContainerEl.className = "task-actions";
 
+    // create edit button
+    var editButtonEl = document.createElement("button");
+    editButtonEl.textContent = "Edit";
+    editButtonEl.className = "btn edit-btn";
+    editButtonEl.setAttribute("data-task-id", taskId);
+    
+    actionContainerEl.appendChild(editButtonEl);
+
+    // create delete button
+    var deleteButtonEl = document.createElement("button");
+    deleteButtonEl.textContent = "Delete";
+    deleteButtonEl.className = "btn delete-btn";
+    deleteButtonEl.setAttribute("data-task-id", taskId);
+
+    actionContainerEl.appendChild(deleteButtonEl);
+
+    // dropdown menu select
+    var statusSelectEl = document.createElement("select");
+    statusSelectEl.className = "select-status";
+    statusSelectEl.setAttribute("name", "status-change");
+    statusSelectEl.setAttribute("data-task-id", taskId);
+
+    actionContainerEl.appendChild(statusSelectEl);
+
+    var statusChoices = ["To Do", "In Progress", "Completed"];
+
+    for (var i = 0; i < statusChoices.length; i++) {
+        // create option element
+        var statusOptionEl = document.createElement("option");
+        statusOptionEl.textContent = statusChoices[i];
+        statusOptionEl.setAttribute("value", statusChoices[i]);
+
+        // append to select
+        statusSelectEl.appendChild(statusOptionEl);
+    }
+
+    
+
+    return actionContainerEl;
 };
 
 formE1.addEventListener("submit", taskFormHandler);
